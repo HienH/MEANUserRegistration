@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
 
 //Register
 router.post('/register', (req, res, next) => {
@@ -22,40 +23,41 @@ router.post('/register', (req, res, next) => {
 });
 
 //Authenticate
-router.get('/authenticate', (req, res, next) => {
+router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
-    const passport = req.body.passport;
+    const password = req.body.password;
 
-    User.getUserByUsername(username, (err, user) => {
+    User.getByUsername(username, (err, user) => {
         if (err) throw err;
         if (!user) {
             return res.json({ success: false, msg: 'User not found' })
         }
-    })
 
-    User.comparePassword(password, user.password, (err, isMatch) => {
-        if (err) throw err;
-        if (isMatch) {
-            const token = jwt.sign(user.id, process.env.SECRET, {
-                expiresIn: 604800 // 1 week
-            });
-            res.json({
-                success: true,
-                token: 'JWT ' + token,
-                user: {
-                    id: user_id,
-                    name: user.name,
-                    email: user.email,
-                    username: user.username
-                }
-            })
-        } else {
-            res.json({
-                success: false,
-                msg: 'Wrong password'
-            });
-        }
 
+        User.comparePassword(password, user.password, (err, isMatch) => {
+            if (err) throw err;
+            if (isMatch) {
+                const token = jwt.sign({ user: user }, process.env.SECRET, {
+                    expiresIn: 604800 // 1 week
+                });
+                res.json({
+                    success: true,
+                    token: 'JWT ' + token,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        username: user.username
+                    }
+                })
+            } else {
+                res.json({
+                    success: false,
+                    msg: 'Wrong password'
+                });
+            }
+
+        })
     })
 });
 
