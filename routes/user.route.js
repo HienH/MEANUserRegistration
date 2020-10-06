@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 //Register
 router.post('/register', (req, res, next) => {
@@ -62,8 +63,8 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 //Profile
-router.get('/profile', (req, res, next) => {
-    res.send('PROFILE');
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
 });
 
 module.exports = router;
