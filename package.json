@@ -1,0 +1,22 @@
+{
+    "name": "meanuserregistration",
+    "version": "1.0.0",
+    "description": "user registration with auth - MEAN Stack",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app"
+    },
+    "dependencies": {
+        "express": "*",
+        "mongoose": "*",
+        "bcryptjs": "*",
+        "cors": "*",
+        "jsonwebtoken": "*",
+        "body-parser": "*",
+        "passport": "*",
+        "passport-jwt": "*"
+    },
+    "author": "hien",
+    "license": "ISC"
+}
