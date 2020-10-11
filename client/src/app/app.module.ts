@@ -10,8 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ValidateService } from './services/validate.service';
-
+import { FormService } from './services/form.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
     declarations: [
         AppComponent,
@@ -25,8 +25,9 @@ import { ValidateService } from './services/validate.service';
         CommonModule,
         AppRoutingModule,
         ReactiveFormsModule,
+        HttpClientModule
     ],
-    providers: [ValidateService],
+    providers: [FormService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
