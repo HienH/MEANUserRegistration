@@ -16,4 +16,11 @@ export class FormService {
         headers.append('Content-Type', 'application/json');
         return this.http.post('http://localhost:3000/user/register', user, { headers: headers });
     }
+
+    loginUser(user) {
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/user/authenticate', user, { headers: headers });
+
+    }
 }
