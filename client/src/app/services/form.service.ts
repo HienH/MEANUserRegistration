@@ -58,6 +58,7 @@ export class FormService {
         const helper = new JwtHelperService();
         let token = localStorage.getItem('jwt')
         if (token) {
+            console.log('token')
             return !helper.isTokenExpired(token.split(' ')[1]);
         } else false;
     }
