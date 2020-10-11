@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.valid) {
             this.formService.loginUser(this.loginForm.value).subscribe(data => {
                 if (data['success']) {
+                    this.formService.storeUserData(data['token'], data['user'])
                     this.router.navigate(['./home']);
                 } else {
                     this.error = true;

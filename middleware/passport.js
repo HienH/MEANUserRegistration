@@ -4,7 +4,6 @@ const User = require('../models/user.model');
 require('dotenv').config();
 
 module.exports = function (passport) {
-    console.log('hellooo');
     let opts = {};
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
     opts.secretOrKey = process.env.SECRET;

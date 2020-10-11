@@ -25,16 +25,14 @@ router.post('/register', (req, res, next) => {
 
 //Authenticate
 router.post('/authenticate', (req, res, next) => {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
-    User.getByUsername(username, (err, user) => {
+    User.getByEmail(email, (err, user) => {
         if (err) throw err;
         if (!user) {
             return res.json({ success: false, msg: 'User not found' })
         }
-
-
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
@@ -43,7 +41,7 @@ router.post('/authenticate', (req, res, next) => {
                 });
                 res.json({
                     success: true,
-                    token: 'JWT ' + token,
+                    token: 'jwt ' + token,
                     user: {
                         id: user.id,
                         name: user.name,
@@ -64,7 +62,7 @@ router.post('/authenticate', (req, res, next) => {
 
 //Profile
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    res.json({ user: req.user });
+    res.json({ user: req.user, success: true });
 });
 
 module.exports = router;
