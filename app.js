@@ -6,7 +6,7 @@ const passport = require('passport');
 const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // use env config
 require('dotenv').config();
@@ -42,6 +42,9 @@ app.get('/', (req, res) => {
 });
 app.use('/user', userRouter);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+})
 
 app.listen(port, () => {
     console.log(`server is running on port ${port}`)

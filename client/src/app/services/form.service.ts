@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-    HttpClient, HttpHeaders
-} from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-
-
-
-
 
 @Injectable({
     providedIn: 'root'
@@ -22,13 +14,13 @@ export class FormService {
     registerUser(user) {
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/user/register', user, { headers: headers });
+        return this.http.post('user/register', user, { headers: headers });
     }
 
     loginUser(user) {
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/user/authenticate', user, { headers: headers });
+        return this.http.post('user/authenticate', user, { headers: headers });
     }
 
     storeUserData(token, user) {
@@ -47,7 +39,7 @@ export class FormService {
             'Content-Type': 'application/json',
             Authorization: this.getToken()
         });
-        return this.http.get('http://localhost:3000/user/profile', { headers: headers })
+        return this.http.get('user/profile', { headers: headers })
     }
 
     getToken() {
