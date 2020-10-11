@@ -1,7 +1,6 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/user.model');
-
 // use env config
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
